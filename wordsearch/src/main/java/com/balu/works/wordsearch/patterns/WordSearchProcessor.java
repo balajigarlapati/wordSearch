@@ -1,14 +1,22 @@
 package com.balu.works.wordsearch.patterns;
 
-import com.balu.works.wordsearch.patterns.AbstractFileFactoryWordSearchProcessor;
-import com.balu.works.wordsearch.patterns.TextWordSearchProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WordSearchProcessor {
+	
+	WordSearchProcessor(){
+		System.out.println("WordSearchProcessor is created");
+	}
 
-	public static AbstractFileFactoryWordSearchProcessor createWordSearchProcessor(String fileName){
+	@Autowired
+	TextWordSearchProcessor textWordSearchProcessor;
+	
+	public AbstractFileFactoryWordSearchProcessor createWordSearchProcessor(String fileName){
 		
 		if(fileName.endsWith(".log") || fileName.endsWith(".txt") || fileName.endsWith(".doc")) {
-			return new TextWordSearchProcessor();
+			return textWordSearchProcessor;
 		}
 		
 		return null;

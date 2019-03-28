@@ -3,6 +3,7 @@ package com.balu.works.wordsearch.service;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.balu.works.wordsearch.domain.WordSearchDetails;
@@ -11,12 +12,15 @@ import com.balu.works.wordsearch.patterns.WordSearchProcessor;
 
 @Service
 public class WordSearchProcessorService {
+	
+	@Autowired
+	WordSearchProcessor wordSearchProcessor;
 
 	public List<WordSearchDetails> getWordSerchDeatils(String fileName, String[] wordsToSearch){
 		
 		List<WordSearchDetails> summary = Collections.EMPTY_LIST;
 		try {
-			AbstractFileFactoryWordSearchProcessor processor = WordSearchProcessor.createWordSearchProcessor(fileName);
+			AbstractFileFactoryWordSearchProcessor processor = wordSearchProcessor.createWordSearchProcessor(fileName);
 			summary = processor.getWordSerchDeatils(fileName, wordsToSearch);
 			System.out.println("summary = "+summary);
 		}catch(Exception ex) {
